@@ -1,7 +1,7 @@
 Summary: XenServer SDK
 Name:   xenserver-sdk
 Version: 1.12.1
-Release: 3
+Release: 3%{dist}
 License: BSD 2-Clause
 Vendor:  Citrix
 URL:     https://github.com/xapi-project/xen-api-sdk
