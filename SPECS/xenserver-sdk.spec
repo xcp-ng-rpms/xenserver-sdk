@@ -17,7 +17,7 @@ BuildArch: noarch
 BuildRequires: ocaml
 BuildRequires: opam
 BuildRequires: xs-opam-repo
-BuildRequires: branding-xenserver
+BuildRequires: branding-xcp-ng
 BuildRequires: ocaml-xen-api-libs-transitional
 BuildRequires: xapi-client-devel
 BuildRequires: xapi-datamodel-devel
