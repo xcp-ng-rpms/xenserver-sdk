@@ -6,19 +6,24 @@ cd csharp\src
 %MSBUILD% XenServer.csproj /t:Build /p:Configuration=Release /p:SignAssembly=true /p:AssemblyOriginatorKeyFile=%1
 
 cd ..\..
+copy csharp\src\bin\Release\XenServer.dll csharp\samples
+cd csharp\samples
+%MSBUILD% XenSdkSample.csproj /t:Build /p:Configuration=Release
+
+cd ..\..
 call sign.bat csharp\src\bin\Release\XenServer.dll "XenServer.NET" || goto :error
 call sign.bat csharp\src\bin\Release\CookComputing.XmlRpcV2.dll "XML-RPC.NET by Charles Cook, signed by Citrix" || goto :error
+call sign.bat csharp\src\bin\Release\Newtonsoft.Json.dll "JSON.NET by James Newton-King, signed by Citrix" || goto :error
 
 copy csharp\src\bin\Release\XenServer.dll powershell\src
 copy csharp\src\bin\Release\CookComputing.XmlRpcV2.dll powershell\src
-
-set CSC=%SYSTEMROOT%\Microsoft.NET\Framework\v4.0.30319\csc.exe
+copy csharp\src\bin\Release\Newtonsoft.Json.dll powershell\src
 
 cd powershell\src
-%CSC% /target:library /out:XenServerPowerShell.dll /r:System.Management.Automation.dll /R:XenServer.dll /R:CookComputing.XmlRpcV2.dll *.cs"
+%MSBUILD% XenServerPowerShell.csproj /t:Build /p:Configuration=Release /p:SignAssembly=true /p:AssemblyOriginatorKeyFile=%1
 
 cd ..\..
-call sign.bat powershell\src\XenServerPowerShell.dll "XenServer PowerShell Module" || goto :error
+call sign.bat powershell\src\bin\Release\XenServerPowerShell.dll "XenServer PowerShell Module" || goto :error
 for /R %%g in (*.ps1xml *.ps1) do (
     call sign.bat %%g  || goto :error
 )

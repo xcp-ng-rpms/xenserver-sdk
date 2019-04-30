@@ -1,15 +1,31 @@
 {
   "files": [
     {
-      "pattern": "xc-local-release/dotnet-packages-ctxsign/release/falcon/staging/1/dotnet45/CookComputing.XmlRpcV2.dll",
+      "pattern": "xc-local-release/dotnet-packages-ctxsign/master/22/dotnet45/CookComputing.XmlRpcV2.dll",
       "target": "./",
       "flat": "true"
     }, {
-      "pattern": "xc-local-release/dotnet-packages-ctxsign/release/falcon/staging/1/dotnet45/LICENSE.CookComputing.XmlRpcV2.txt",
+      "pattern": "xc-local-release/dotnet-packages-ctxsign/master/22/dotnet45/LICENSE.CookComputing.XmlRpcV2.txt",
       "target": "./",
       "flat": "true"
     }, {
-      "pattern": "ctx-local-contrib/apache/xeserver-sdk-jars/*.jar",
+      "pattern": "xc-local-release/dotnet-packages-ctxsign/master/22/dotnet45/Newtonsoft.Json.dll",
+      "target": "./",
+      "flat": "true"
+    }, {
+      "pattern": "xc-local-release/dotnet-packages-ctxsign/master/22/dotnet45/LICENSE.Newtonsoft.Json.txt",
+      "target": "./",
+      "flat": "true"
+    }, {
+      "pattern": "ctx-local-contrib/apache/xeserver-sdk-jars/xmlrpc-client-3.1.3.jar",
+      "target": "./",
+      "flat": "true"
+    }, {
+      "pattern": "ctx-local-contrib/apache/xeserver-sdk-jars/xmlrpc-common-3.1.3.jar",
+      "target": "./",
+      "flat": "true"
+    }, {
+      "pattern": "ctx-local-contrib/apache/xeserver-sdk-jars/ws-commons-util-1.0.2.jar",
       "target": "./",
       "flat": "true"
     }, {

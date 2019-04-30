@@ -60,9 +60,9 @@ if exist %CTXSIGN% (
     echo %CTXSIGN% does not exist; self-signing.
 
     if /I "%cross_sign%" == "no" (
-        signtool sign -v -sm -sha1 ba949e6a25b123f17ea3149b22719a436166f78c -d "%descr%" -tr %timestamp_sha2% -td sha256 %1
+        signtool sign -v -sm -sha1 bf2532d181cea12b60d0fe7844af5f538d4d11ee -d "%descr%" -tr %timestamp_sha2% -td sha256 %1
     ) else (
-        signtool sign -v -sm -sha1 ba949e6a25b123f17ea3149b22719a436166f78c -d "%descr%" -t %timestamp_sha1% %1
-        signtool sign -v -sm -as -sha1 6624ce2ed692d34ccb0a349979f2085f0fcad69b -d "%descr%" -tr %timestamp_sha2% -td sha256 %1 
+        signtool sign -v -sm -sha1 bf2532d181cea12b60d0fe7844af5f538d4d11ee -d "%descr%" -t %timestamp_sha1% %1
+        signtool sign -v -sm -as -sha1 882ea3a1d72e27e21e39175163fb31e6eb6efa1e -d "%descr%" -tr %timestamp_sha2% -td sha256 %1
     )
 )
