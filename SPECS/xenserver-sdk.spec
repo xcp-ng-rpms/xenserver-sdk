@@ -1,20 +1,21 @@
 Summary: XenServer SDK
 Name:   xenserver-sdk
-Version: 1.50.0
-Release: 1.xapi.1.159.0
+Version: 1.54.0
+Release: 1.xapi.1.214.0
 License: BSD 2-Clause
 Vendor:  Citrix Systems, Inc.
 URL:     https://github.com/xapi-project/xen-api-sdk
 
-Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/xen-api-sdk/archive?at=v1.50.0&prefix=xenserver-sdk-1.50.0&format=tar.gz#/xen-api-sdk-1.50.0.tar.gz
+Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/xen-api-sdk/archive?at=v1.54.0&prefix=xenserver-sdk-1.54.0&format=tar.gz#/xen-api-sdk-1.54.0.tar.gz
 Source1: SOURCES/xenserver-sdk/build-after.sh
 Source2: SOURCES/xenserver-sdk/build-before.sh
 Source3: SOURCES/xenserver-sdk/build-win.bat
 Source4: SOURCES/xenserver-sdk/deps-map.json
 Source5: SOURCES/xenserver-sdk/sign.bat
+Source6: SOURCES/xenserver-sdk/Citrix.Hypervisor.SDK.nuspec
 
 
-Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/xen-api-sdk/archive?at=v1.50.0&prefix=xenserver-sdk-1.50.0&format=tar.gz#/xen-api-sdk-1.50.0.tar.gz) = ba6b6ec80a93098a8bab93bdee18b7a773df99fd
+Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/xen-api-sdk/archive?at=v1.54.0&prefix=xenserver-sdk-1.54.0&format=tar.gz#/xen-api-sdk-1.54.0.tar.gz) = 546c81f4ef5b699ad92beca04887ac78561b24fc
 
 
 BuildArch: noarch
@@ -40,7 +41,7 @@ XenServer SDK.
 
 
 %build
-export OPAMROOT=/usr/lib/opamroot
+export OPAMROOT=%{_opamroot}
 eval `opam config env`
 
 VERSIONS=/usr/src/branding/toplevel-versions
@@ -60,7 +61,7 @@ export SDK_VERSION=${MAJOR}.${MINOR}.${MICRO_OVERRIDE}
 export SR_XML=/opt/xensource/sm/XE_SR_ERRORCODES.xml
 export PRODUCT_GUID=$(uuidgen | tr a-z A-Z)
 make
-
+sed -e "s|@SDK_VERSION@|${SDK_VERSION}|g" %{SOURCE6} > Citrix.Hypervisor.SDK.nuspec
 
 %define sdk_dir %{_datarootdir}/xapi/sdk
 
@@ -79,6 +80,7 @@ cp %{python_sitelib}/XenAPI.py    %{buildroot}%{sdk_dir}/python
 cp -r python/samples              %{buildroot}%{sdk_dir}/python
 
 cp %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{sdk_dir}/
+cp Citrix.Hypervisor.SDK.nuspec %{buildroot}%{sdk_dir}/csharp/Citrix.Hypervisor.SDK.nuspec
 
 find %{buildroot}%{sdk_dir} -type f -exec chmod 644 {} \;
 
@@ -92,6 +94,28 @@ exit 0
 
 
 %changelog
+* Tue Oct 29 2019 Edvin Török <edvin.torok@citrix.com> - 1.54.0-1
+- Corrected spelling to match the docs. Use en-us spelling.
+
+* Fri Aug 23 2019 Edwin Török <edvin.torok@citrix.com> - 1.53.0-2.xapi.1.191.0
+- bump packages after xs-opam update
+
+* Tue Jul 23 2019 Rob Hoes <rob.hoes@citrix.com> - 1.53.0-1
+- Simplify Travis setup
+
+* Fri Jun 21 2019 Christian Lindig <christian.lindig@citrix.com> - 1.52.0-1
+- Corrected file permissions.
+- Basic implementation of mustache to generate the Proxy and i
+  JsonRpcClient classes.
+- Use mustache to generate the enum files. Added xml docs to the enum memebrs.
+- Remove from the overrides entries that are the same as in 
+  xen-api (includes CA-258385).
+- Remove EventHelpers file from the XenServer project file
+
+* Wed Apr 17 2019 Konstantina Chremmou <konstantina.chremmou@citrix.com> - 1.51.0-1.xapi.1.166.0
+- CP-31133: Added NuGet spec file for the C# SDK
+- CP-31132: Renamed the Newtonsoft.Json.dll to avoid clashes with the upstream dll
+
 * Wed Apr 03 2019 Christian Lindig <christian.lindig@citrix.com> - 1.50.0-1
 - CA-311238 refix: when creating a session from another Session object, 
   copy over its properties.
