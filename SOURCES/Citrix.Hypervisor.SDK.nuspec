@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Citrix.Hypervisor.SDK</id>
+    <version>@SDK_VERSION@</version>
+    <title>Citrix Hypervisor .NET SDK</title>
+    <description>.NET wrapper for the Citrix Hypervisor API</description>
+    <authors>Konstantina Chremmou</authors>
+    <owners>Citrix Systems, Inc.</owners>
+    <projectUrl>https://github.com/xapi-project/xen-api-sdk</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">BSD-2-Clause</license>
+    <copyright>Copyright (c) Citrix Systems, Inc. All rights reserved.</copyright>
+    <tags>citrix hypervisor virtualization sdk xmlrpc jsonrpc .net c#</tags>
+    <packageTypes>
+      <packageType name="Dependency" />
+    </packageTypes>
+  </metadata>
+  <files>
+    <file target="." src="LICENSE.txt" />
+    <file target="." src="LICENSE.Newtonsoft.Json.txt" />
+    <file target="." src="LICENSE.CookComputing.XmlRpcV2.txt" />
+    <file target="lib\net45" src="src\bin\Release\XenServer.dll"/>
+    <file target="lib\net45" src="src\bin\Release\Newtonsoft.Json.CH.dll" />
+    <file target="lib\net45" src="src\bin\Release\CookComputing.XmlRpcV2.dll" />
+  </files>
+</package>

@@ -3,8 +3,8 @@
 rem This script applies to the SDK build on transformer. Do not simply copy it
 rem over to other products or build environments - it may give you real grief
 
-set timestamp_sha1=http://timestamp.verisign.com/scripts/timestamp.dll
-set timestamp_sha2=http://sha256timestamp.ws.symantec.com/sha256/timestamp
+set timestamp_sha1=http://timestamp.digicert.com
+set timestamp_sha2=http://timestamp.digicert.com
 
 set cross_sign=yes
 set is_ps=no
@@ -29,7 +29,7 @@ set CTXSIGN2=C:\ctxsign2\ctxsign.exe
 if exist %CTXSIGN% (
     echo %CTXSIGN% exists; signing in SBE
 
-    %CTXSIGN%  --authorise --workerID tizon-2 --orchID tizon-2 --jobID XenServerWindowsLegacyPVTools_signing --task XenServerDotnetPackages-%BUILD_NUMBER% --debug > out.txt
+    %CTXSIGN%  --authorise --workerID %3 --orchID %3 --jobID XenServerWindowsLegacyPVTools_signing --task XenServerDotnetPackages-%BUILD_NUMBER% --debug > out.txt
     echo OUTPUT FROM %CTXSIGN% --AUTHORISE:
     type out.txt
     echo OUTPUT ENDS

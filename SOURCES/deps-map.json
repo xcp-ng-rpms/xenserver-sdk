@@ -1,19 +1,19 @@
 {
   "files": [
     {
-      "pattern": "xc-local-release/dotnet-packages-ctxsign/master/22/dotnet45/CookComputing.XmlRpcV2.dll",
+      "pattern": "xc-local-release/dotnet-packages-ctxsign/master/25/dotnet45/CookComputing.XmlRpcV2.dll",
       "target": "./",
       "flat": "true"
     }, {
-      "pattern": "xc-local-release/dotnet-packages-ctxsign/master/22/dotnet45/LICENSE.CookComputing.XmlRpcV2.txt",
+      "pattern": "xc-local-release/dotnet-packages-ctxsign/master/25/dotnet45/Newtonsoft.Json.CH.dll",
       "target": "./",
       "flat": "true"
     }, {
-      "pattern": "xc-local-release/dotnet-packages-ctxsign/master/22/dotnet45/Newtonsoft.Json.dll",
+      "pattern": "xc-local-release/dotnet-packages-ctxsign/master/25/LICENSE.CookComputing.XmlRpcV2.txt",
       "target": "./",
       "flat": "true"
     }, {
-      "pattern": "xc-local-release/dotnet-packages-ctxsign/master/22/dotnet45/LICENSE.Newtonsoft.Json.txt",
+      "pattern": "xc-local-release/dotnet-packages-ctxsign/master/25/LICENSE.Newtonsoft.Json.txt",
       "target": "./",
       "flat": "true"
     }, {
