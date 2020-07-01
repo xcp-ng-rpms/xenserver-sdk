@@ -11,7 +11,7 @@ mkdir -p XenServer-SDK/libxenserver/bin
 mkdir -p XenServer-SDK/libxenserver/src
 mv  c/{COPYING,README} XenServer-SDK/libxenserver
 cp -r c/* XenServer-SDK/libxenserver/src
-make -C c all
+make -C c
 mv c/libxenserver.so* XenServer-SDK/libxenserver/bin
 
 # Java
