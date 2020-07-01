@@ -1,3 +1,9 @@
+rem Script parameters:
+rem 1 SNK key location
+rem 2 Signing node name
+rem 3 Self-signing certificate thumbprint1
+rem 4 Self-signing certificate thumbprint2
+
 set MSBUILD=%SYSTEMROOT%\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe
 set RESGEN="%SYSTEMDRIVE%\Program Files (x86)\Microsoft SDKs\Windows\v8.1A\bin\NETFX 4.5.1 Tools\ResGen.exe"
 set NUGET=nuget.exe
@@ -31,7 +37,7 @@ copy LICENSE.CookComputing.XmlRpcV2.txt csharp
 copy LICENSE.Newtonsoft.Json.txt csharp
 
 cd csharp\src
-%RESGEN% FriendlyErrorNames.resx /str:cs,XenAPI,FriendlyErrorNames,FriendlyErrorNames.Designer.cs /publicClass
+%RESGEN% FriendlyErrorNames.resx /str:cs,XenAPI,FriendlyErrorNames,FriendlyErrorNames.Designer.cs /publicClass XenAPI.FriendlyErrorNames.resources
 %MSBUILD% XenServer.csproj /t:Build /p:Configuration=Release /p:SignAssembly=true /p:AssemblyOriginatorKeyFile=%1
 cd ..\..
 
@@ -40,9 +46,9 @@ cd csharp\samples
 %MSBUILD% XenSdkSample.csproj /t:Build /p:Configuration=Release
 
 cd ..\..
-call sign.bat csharp\src\bin\Release\XenServer.dll "XenServer.NET" %2 || goto :error
-call sign.bat csharp\src\bin\Release\CookComputing.XmlRpcV2.dll "XML-RPC.NET by Charles Cook, signed by Citrix" %2 || goto :error
-call sign.bat csharp\src\bin\Release\Newtonsoft.Json.CH.dll "JSON.NET by James Newton-King, signed by Citrix" %2 || goto :error
+call sign.bat csharp\src\bin\Release\XenServer.dll "XenServer.NET" %2 %3 %4 || goto :error
+call sign.bat csharp\src\bin\Release\CookComputing.XmlRpcV2.dll "XML-RPC.NET by Charles Cook, signed by Citrix" %2 %3 %4 || goto :error
+call sign.bat csharp\src\bin\Release\Newtonsoft.Json.CH.dll "JSON.NET by James Newton-King, signed by Citrix" %2 %3 %4 || goto :error
 
 for /R csharp\src\bin\Release %%g in (XenServer.dll,CookComputing.XmlRpcV2.dll,Newtonsoft.Json.CH.dll) do copy /y %%g XenServer-SDK\XenServer.NET\bin
 copy csharp\src\FriendlyErrorNames.Designer.cs XenServer-SDK\XenServer.NET\src
@@ -79,9 +85,9 @@ cd powershell\src
 %MSBUILD% XenServerPowerShell.csproj /t:Build /p:Configuration=Release /p:SignAssembly=true /p:AssemblyOriginatorKeyFile=%1
 
 cd ..\..
-call sign.bat powershell\src\bin\Release\XenServerPowerShell.dll "XenServer PowerShell Module" %2 || goto :error
+call sign.bat powershell\src\bin\Release\XenServerPowerShell.dll "XenServer PowerShell Module" %2 %3 %4 || goto :error
 for /R %%g in (*.ps1xml *.ps1) do (
-  call sign.bat %%g "XenServer SDK" %2 || goto :error
+  call sign.bat %%g "XenServer SDK" %2 %3 %4 || goto :error
 )
 
 for /R powershell\src\bin\Release\ %%g in (XenServer.dll,CookComputing.XmlRpcV2.dll,Newtonsoft.Json.CH.dll,XenServerPowerShell.dll) do (

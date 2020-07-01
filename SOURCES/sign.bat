@@ -3,8 +3,17 @@
 rem This script applies to the SDK build on transformer. Do not simply copy it
 rem over to other products or build environments - it may give you real grief
 
+rem Script parameters:
+rem 1 File to be signed
+rem 2 Description
+rem 3 Signing node name
+rem 4 Self-signing certificate sha1 thumbprint
+rem 5 Self-signing certificate sha256 thumbprint
+
 set timestamp_sha1=http://timestamp.digicert.com
 set timestamp_sha2=http://timestamp.digicert.com
+set thumb_sha1=%4
+set thumb_sha256=%5
 
 set cross_sign=yes
 set is_ps=no
@@ -60,9 +69,9 @@ if exist %CTXSIGN% (
     echo %CTXSIGN% does not exist; self-signing.
 
     if /I "%cross_sign%" == "no" (
-        signtool sign -v -sm -sha1 bf2532d181cea12b60d0fe7844af5f538d4d11ee -d "%descr%" -tr %timestamp_sha2% -td sha256 %1
+        signtool sign -v -sm -sha1 %thumb_sha1% -d "%descr%" -tr %timestamp_sha2% -td sha256 %1
     ) else (
-        signtool sign -v -sm -sha1 bf2532d181cea12b60d0fe7844af5f538d4d11ee -d "%descr%" -t %timestamp_sha1% %1
-        signtool sign -v -sm -as -sha1 882ea3a1d72e27e21e39175163fb31e6eb6efa1e -d "%descr%" -tr %timestamp_sha2% -td sha256 %1
+        signtool sign -v -sm -sha1 %thumb_sha1% -d "%descr%" -t %timestamp_sha1% %1
+        signtool sign -v -sm -as -sha1 %thumb_sha256% -d "%descr%" -tr %timestamp_sha2% -td sha256 %1
     )
 )

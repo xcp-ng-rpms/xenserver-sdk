@@ -1,12 +1,12 @@
 Summary: XenServer SDK
 Name:   xenserver-sdk
-Version: 1.54.0
-Release: 1.xapi.1.214.0
+Version: 1.62.0
+Release: 1.xapi.1.249.3
 License: BSD 2-Clause
 Vendor:  Citrix Systems, Inc.
 URL:     https://github.com/xapi-project/xen-api-sdk
 
-Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/xen-api-sdk/archive?at=v1.54.0&prefix=xenserver-sdk-1.54.0&format=tar.gz#/xen-api-sdk-1.54.0.tar.gz
+Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/xen-api-sdk/archive?at=v1.62.0&prefix=xenserver-sdk-1.62.0&format=tar.gz#/xen-api-sdk-1.62.0.tar.gz
 Source1: SOURCES/xenserver-sdk/build-after.sh
 Source2: SOURCES/xenserver-sdk/build-before.sh
 Source3: SOURCES/xenserver-sdk/build-win.bat
@@ -15,7 +15,7 @@ Source5: SOURCES/xenserver-sdk/sign.bat
 Source6: SOURCES/xenserver-sdk/Citrix.Hypervisor.SDK.nuspec
 
 
-Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/xen-api-sdk/archive?at=v1.54.0&prefix=xenserver-sdk-1.54.0&format=tar.gz#/xen-api-sdk-1.54.0.tar.gz) = 546c81f4ef5b699ad92beca04887ac78561b24fc
+Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/xen-api-sdk/archive?at=v1.62.0&prefix=xenserver-sdk-1.62.0&format=tar.gz#/xen-api-sdk-1.62.0.tar.gz) = ec6adc5eaf6ebb6ea52930302489387127a457eb
 
 
 BuildArch: noarch
@@ -94,6 +94,51 @@ exit 0
 
 
 %changelog
+* Mon Jun 01 2020 Christian Lindig <christian.lindig@citrix.com> - 1.62.0-1
+- CA-340473: Synchronous object removers do not return an object.
+
+* Fri May 29 2020 Christian Lindig <christian.lindig@citrix.com> - 1.61.0-1
+- Some script corrections:
+- Fixed document format.
+- Added missing line breaks and replaced non-ASCII characters.
+- CA-340392: Do not allow Invoke-* cmdlets to pass through the object on
+	which the API call is run if the latter returns void.
+
+* Mon May 18 2020 Christian Lindig <christian.lindig@citrix.com> - 1.60.0-1
+- CA-339331: Skip uses deferred execution and needs enumeration. Also:
+
+* Fri Apr 24 2020 Christian Lindig <christian.lindig@citrix.com> - 1.59.0-1
+- Improved parsing of SMAPIv3 errors. Deprecated Failure method that
+	should not be used directly by the implementation.
+- CP-32699: Added a couple of error overrides and an ISO 8601 date
+	format.
+
+* Wed Feb 12 2020 Christian Lindig <christian.lindig@citrix.com> - 1.58.0-1
+- CA-333712: handle wrapped strings the same as strings
+
+* Tue Feb 04 2020 Christian Lindig <christian.lindig@citrix.com> - 1.57.0-1
+- Fixed javadoc compilation errors (needed for CP-32780).
+- CP-29452: Deprecated XenObject.Changed property.
+- CA-75634: C# SDK: fixed compiler warnings. Treat warnings as errors in
+	C# and PS.
+- CA-280976: Fixed default value of session fields.
+- CA-333394: Fixed compilation error in C++ due to typename being a
+	reserved keyword. Tidied up Makefile.
+- Generate the MessageTypes using a mustache template.
+
+* Mon Feb 03 2020 Konstantina Chremmou <konstantina.chremmou@citrix.com> - 1.56.0-2.xapi.1.223.0
+- CA-75634: C# SDK: fixed compiler warnings. C SDK: Makefile correction.
+
+* Tue Jan 28 2020 Christian Lindig <christian.lindig@citrix.com> - 1.56.0-1
+- CA-333871: Corrected the serialization format for DateTime so the API accepts it.
+- Use older C# syntax to fix build.
+
+* Fri Jan 10 2020 Christian Lindig <christian.lindig@citrix.com> - 1.55.0-1
+- travis: pull settings from xs-opam
+
+* Wed Jan 08 2020 Konstantina Chremmou <konstantina.chremmou@citrix.com> - 1.54.0-2.xapi.1.219.0
+- CA-298871: Pass the thumbprints of the self-signing certificates as parameters to the build script.
+
 * Tue Oct 29 2019 Edvin Török <edvin.torok@citrix.com> - 1.54.0-1
 - Corrected spelling to match the docs. Use en-us spelling.
 
@@ -108,7 +153,7 @@ exit 0
 - Basic implementation of mustache to generate the Proxy and i
   JsonRpcClient classes.
 - Use mustache to generate the enum files. Added xml docs to the enum memebrs.
-- Remove from the overrides entries that are the same as in 
+- Remove from the overrides entries that are the same as in
   xen-api (includes CA-258385).
 - Remove EventHelpers file from the XenServer project file
 
@@ -117,7 +162,7 @@ exit 0
 - CP-31132: Renamed the Newtonsoft.Json.dll to avoid clashes with the upstream dll
 
 * Wed Apr 03 2019 Christian Lindig <christian.lindig@citrix.com> - 1.50.0-1
-- CA-311238 refix: when creating a session from another Session object, 
+- CA-311238 refix: when creating a session from another Session object,
   copy over its properties.
 - CP-30785: Replaced xenserver.org links
 
@@ -143,7 +188,7 @@ exit 0
 
 * Wed Oct 31 2018 Christian Lindig <christian.lindig@citrix.com> - 1.45.0-1
 - Ported xen-api-sdk to dune and fixed warnings.
-- Specified profile in dune build invocations. 
+- Specified profile in dune build invocations.
   Corrected opam file as per travis's warnings.
 
 * Mon Sep 17 2018 Christian Lindig <christian.lindig@citrix.com> - 1.44.0-1
@@ -153,7 +198,7 @@ exit 0
 - Remove patch 0001-helpers-Add-out_indent-for-compat-with-ocaml-4.06.patch
 
 * Wed Jul 25 2018 Christian Lindig <christian.lindig@citrix.com> - 1.43.0-1
-- CA-293478: Always set the WebRequest properties to the values 
+- CA-293478: Always set the WebRequest properties to the values
   specified by the JsonRpcClient.
 - Copy some more properties of the XmlRpcProxy to the JsonRpcClient.
 
@@ -204,13 +249,13 @@ exit 0
 
 * Thu Feb 22 2018 Christian Lindig <christian.lindig@citrix.com> - 1.33.0-1
 - CA-40854: The Session's uuid is in reality its opaque_ref.
-- CA-283613: Added missing converters for Map(Ref,Int) and 
+- CA-283613: Added missing converters for Map(Ref,Int) and
   Map(Ref,Map(String,String)).
-- CA-283697: Avoid resetting a field to null when creating an object 
+- CA-283697: Avoid resetting a field to null when creating an object
   from a Hashtable not containing the field.
 
 * Mon Feb 19 2018 Christian Lindig <christian.lindig@citrix.com> - 1.32.0-1.xapi.1.72.0
-- Added --dev flag to build target; do not build all the generators 
+- Added --dev flag to build target; do not build all the generators
   if only a specific language is specified.
 - Changed dependencies to use the newly defined packages. Fixed warning.
 - Replaced package xapi-stdext-std with astring.
@@ -220,7 +265,7 @@ exit 0
 - Do not use a Session's opaque_ref after logging out because the operation sets it to null.
 - Updated paths and instructions after merging from master.
 
-* Thu Jan 26 2018 Konstantina Chremmou <konstantina.chremmou@citrix.com> - 1.30.0-1.xapi.1.69.0
+* Fri Jan 26 2018 Konstantina Chremmou <konstantina.chremmou@citrix.com> - 1.30.0-1.xapi.1.69.0
 - Support for the JsonRpc protocol in the C# SDK.
 - Corrected vendor name in specfile.
 
