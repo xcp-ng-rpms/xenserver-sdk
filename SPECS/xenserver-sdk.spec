@@ -1,21 +1,15 @@
 Summary: XenServer SDK
 Name:   xenserver-sdk
-Version: 1.62.0
-Release: 1.xapi.1.249.3%{?dist}
+Version: 1.62.4
+Release: 3.xapi.1.249.17%{?dist}
 License: BSD 2-Clause
 Vendor:  Citrix Systems, Inc.
 URL:     https://github.com/xapi-project/xen-api-sdk
 
-Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/xen-api-sdk/archive?at=v1.62.0&prefix=xenserver-sdk-1.62.0&format=tar.gz#/xen-api-sdk-1.62.0.tar.gz
-Source1: SOURCES/xenserver-sdk/build-after.sh
-Source2: SOURCES/xenserver-sdk/build-before.sh
-Source3: SOURCES/xenserver-sdk/build-win.bat
-Source4: SOURCES/xenserver-sdk/deps-map.json
-Source5: SOURCES/xenserver-sdk/sign.bat
-Source6: SOURCES/xenserver-sdk/Citrix.Hypervisor.SDK.nuspec
+Source0: https://code.citrite.net/rest/archive/latest/projects/XSU/repos/xen-api-sdk/archive?at=v1.62.4&prefix=xenserver-sdk-1.62.4&format=tar.gz#/xen-api-sdk-1.62.4.tar.gz
 
 
-Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/xen-api-sdk/archive?at=v1.62.0&prefix=xenserver-sdk-1.62.0&format=tar.gz#/xen-api-sdk-1.62.0.tar.gz) = ec6adc5eaf6ebb6ea52930302489387127a457eb
+Provides: gitsha(https://code.citrite.net/rest/archive/latest/projects/XSU/repos/xen-api-sdk/archive?at=v1.62.4&prefix=xenserver-sdk-1.62.4&format=tar.gz#/xen-api-sdk-1.62.4.tar.gz) = 271b9c1e0d8f6ea6c11e87fd6013a59debf85cff
 
 
 BuildArch: noarch
@@ -32,6 +26,7 @@ BuildRequires: busybox
 BuildRequires: vmss
 BuildRequires: xapi-core
 BuildRequires: sm
+%global __python %{__python2}
 
 %description
 XenServer SDK.
@@ -55,13 +50,12 @@ MICRO=$(cat ${VERSIONS} | grep -F "PRODUCT_MICRO_VERSION := " | sed -e 's/PRODUC
 # the ${MICRO} variable should be replaced with a hardcoded number to override
 # the one from branding. This should be subsequently bumped for each new hotfix.
 #===============================================================================
-MICRO_OVERRIDE=${MICRO}
+MICRO_OVERRIDE=2
 
 export SDK_VERSION=${MAJOR}.${MINOR}.${MICRO_OVERRIDE}
 export SR_XML=/opt/xensource/sm/XE_SR_ERRORCODES.xml
 export PRODUCT_GUID=$(uuidgen | tr a-z A-Z)
 make
-sed -e "s|@SDK_VERSION@|${SDK_VERSION}|g" %{SOURCE6} > Citrix.Hypervisor.SDK.nuspec
 
 %define sdk_dir %{_datarootdir}/xapi/sdk
 
@@ -79,9 +73,6 @@ cp -r _build/default/powershell/autogen/* %{buildroot}%{sdk_dir}/powershell
 cp %{python_sitelib}/XenAPI.py    %{buildroot}%{sdk_dir}/python
 cp -r python/samples              %{buildroot}%{sdk_dir}/python
 
-cp %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{buildroot}%{sdk_dir}/
-cp Citrix.Hypervisor.SDK.nuspec %{buildroot}%{sdk_dir}/csharp/Citrix.Hypervisor.SDK.nuspec
-
 find %{buildroot}%{sdk_dir} -type f -exec chmod 644 {} \;
 
 #we need only sources, without compiling anything
@@ -94,6 +85,33 @@ exit 0
 
 
 %changelog
+* Thu Nov 18 2021 Konstantina Chremmou <konstantina.chremmou@citrix.com> - 1.62.4-3.xapi.1.249.17
+- Bumped the version for the Yangtze release to 8.2.2.
+
+* Mon Sep 27 2021 Pau Ruiz Safont <pau.safont@citrix.com> - 1.62.4-2.xapi.1.249.15
+- Bump package after xs-opam update
+
+* Thu Sep 23 2021 Pau Ruiz Safont <pau.safont@citrix.com> - 1.62.4-1.xapi.1.249.15
+- Fix handling of web-dir parameter
+
+* Wed Sep 1 2021 Danilo Del Busso <Danilo.Del.Busso@citrix.com> - 1.62.4-1.xapi.1.249.9
+- CP-37590: Replace negative language strings with `pool member` in `FriendlyErrorNames.resx`
+
+* Tue Aug 24 2021 Konstantina Chremmou <konstantina.chremmou@citrix.com> - 1.62.3-2.xapi.1.249.9
+- Build scripts have moved to a pipeline library.
+
+* Tue Aug 24 2021 Konstantina Chremmou <konstantina.chremmou@citrix.com> - 1.62.3-1.xapi.1.249.9
+- Partial revert of commit 43b815ba19ab62e468421dcabc3e204e8db8137f.
+- Reverted two more C# 6.0 features.
+- Reverted string interpolation to string.Format()
+- CA-343280: Extended proxy authentication.
+- CA-345342: Made the query parameters of the http actions optional and nullable.
+- Use a mustache template to generate the HTTP actions.
+- Removed error message override because it has been outdated by the original API error message.
+
+* Tue Jul 13 2021 Edwin Török <edvin.torok@citrix.com> - 1.62.0-2.xapi.1.249.3
+- bump packages after xs-opam update
+
 * Mon Jun 01 2020 Christian Lindig <christian.lindig@citrix.com> - 1.62.0-1
 - CA-340473: Synchronous object removers do not return an object.
 
