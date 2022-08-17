@@ -1,7 +1,7 @@
 Summary: XenServer SDK
 Name:   xenserver-sdk
 Version: 1.62.4
-Release: 3.xapi.1.249.17%{?dist}
+Release: 3.xapi.1.249.17.1%{?dist}
 License: BSD 2-Clause
 Vendor:  Citrix Systems, Inc.
 URL:     https://github.com/xapi-project/xen-api-sdk
@@ -85,6 +85,9 @@ exit 0
 
 
 %changelog
+* Wed Aug 17 2022 Gael Duperrey <gduperrey@vates.fr> - 1.62.4-3.xapi.1.249.17.1
+- Rebuild for updated xapi from XS82ECU1011
+
 * Thu Nov 18 2021 Konstantina Chremmou <konstantina.chremmou@citrix.com> - 1.62.4-3.xapi.1.249.17
 - Bumped the version for the Yangtze release to 8.2.2.
 
